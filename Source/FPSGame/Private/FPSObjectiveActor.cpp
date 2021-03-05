@@ -5,6 +5,7 @@
 
 #include "Components/SphereComponent.h"
 #include "Components/StaticMeshComponent.h"
+#include "Kismet/GameplayStatics.h"
 
 // Sets default values
 AFPSObjectiveActor::AFPSObjectiveActor()
@@ -13,9 +14,13 @@ AFPSObjectiveActor::AFPSObjectiveActor()
     PrimaryActorTick.bCanEverTick = true;
 
     MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
+    MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
     RootComponent = MeshComponent;
 
     SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
+    SphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+    SphereComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
+    SphereComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
     SphereComponent->SetupAttachment(RootComponent);
 }
 
@@ -29,4 +34,16 @@ void AFPSObjectiveActor::BeginPlay()
 void AFPSObjectiveActor::Tick(float DeltaTime)
 {
     Super::Tick(DeltaTime);
+}
+
+void AFPSObjectiveActor::NotifyActorBeginOverlap(AActor* OtherActor)
+{
+    Super::NotifyActorBeginOverlap(OtherActor);
+
+    PlayEffects();
+}
+
+void AFPSObjectiveActor::PlayEffects() const
+{
+    UGameplayStatics::SpawnEmitterAtLocation(this, PickupFX, GetActorLocation());
 }
