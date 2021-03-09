@@ -1,6 +1,6 @@
 // Copyright 1998-2017 Epic Games, Inc. All Rights Reserved.
 
-#pragma once 
+#pragma once
 
 #include "CoreMinimal.h"
 #include "GameFramework/HUD.h"
@@ -11,19 +11,17 @@ class UTexture2D;
 UCLASS()
 class AFPSHUD : public AHUD
 {
-	GENERATED_BODY()
+    GENERATED_BODY()
 
 protected:
 
-	/** Crosshair asset pointer */
-	UTexture2D* CrosshairTex;
+    /** Crosshair asset pointer */
+    UTexture2D* CrosshairTex;
 
 public:
 
-	AFPSHUD();
+    AFPSHUD();
 
-	/** Primary draw call for the HUD */
-	virtual void DrawHUD() override;
-
+    /** Primary draw call for the HUD */
+    virtual void DrawHUD() override;
 };
-
