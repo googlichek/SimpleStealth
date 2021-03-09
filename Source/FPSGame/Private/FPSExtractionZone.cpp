@@ -3,6 +3,8 @@
 
 #include "FPSExtractionZone.h"
 
+#include "FPSCharacter.h"
+#include "FPSGameMode.h"
 #include "Components/BoxComponent.h"
 #include "Components/DecalComponent.h"
 
@@ -43,4 +45,14 @@ void AFPSExtractionZone::Tick(float DeltaTime)
 void AFPSExtractionZone::HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
 {
     UE_LOG(LogTemp, Log, TEXT("Overlapped with extraction zone."))
+
+    AFPSCharacter* Pawn = Cast<AFPSCharacter>(OtherActor);
+    if (Pawn && Pawn->bIsCarryingObjective)
+    {
+        AFPSGameMode* GameMode = Cast<AFPSGameMode>(GetWorld()->GetAuthGameMode());
+        if (GameMode)
+        {
+            GameMode->CompleteMission(Pawn);
+        }
+    }
 }

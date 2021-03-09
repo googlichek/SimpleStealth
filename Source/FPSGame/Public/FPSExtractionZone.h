@@ -16,6 +16,9 @@ public:
     // Sets default values for this actor's properties
     AFPSExtractionZone();
 
+    // Called when the game starts or when spawned
+    virtual void BeginPlay() override;
+
     // Called every frame
     virtual void Tick(float DeltaTime) override;
 
@@ -26,9 +29,6 @@ protected:
 
     UPROPERTY(VisibleAnywhere, Category = "Components")
     class UDecalComponent* DecalComponent = nullptr;
-
-    // Called when the game starts or when spawned
-    virtual void BeginPlay() override;
 
     UFUNCTION()
     void HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
