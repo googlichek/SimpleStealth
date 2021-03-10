@@ -30,6 +30,9 @@ protected:
     UPROPERTY(VisibleAnywhere, Category = "Components")
     class UDecalComponent* DecalComponent = nullptr;
 
+    UPROPERTY(EditDefaultsOnly, Category = "Sounds")
+    class USoundBase* ObjectiveMissingSound = nullptr;
+
     UFUNCTION()
-    void HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+    void HandleOverlap(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);    
 };

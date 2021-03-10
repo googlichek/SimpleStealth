@@ -19,4 +19,9 @@ public:
 
     UFUNCTION(BlueprintImplementableEvent, Category = "GameMode")
     void OnMissionCompleted(APawn* InstigatorPawn);
+
+protected:
+
+    UPROPERTY(EditDefaultsOnly, Category = "Spectating")
+    TSubclassOf<AActor> SpectatingViewpointClass = nullptr;
 };
