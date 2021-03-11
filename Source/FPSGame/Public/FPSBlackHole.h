@@ -9,26 +9,28 @@
 UCLASS()
 class FPSGAME_API AFPSBlackHole : public AActor
 {
-    GENERATED_BODY()
+	GENERATED_BODY()
 
 public:
-    // Sets default values for this actor's properties
-    AFPSBlackHole();
+	// Sets default values for this actor's properties
+	AFPSBlackHole();
 
-    // Called every frame
-    virtual void Tick(float DeltaTime) override;
+	// Called every frame
+	virtual void Tick(float DeltaTime) override;
 
 protected:
 
-    UPROPERTY(VisibleAnywhere, Category = "Components")
-    class USphereComponent* InnerSphereComponent = nullptr;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	class USphereComponent* InnerSphereComponent = nullptr;
 
-    UPROPERTY(VisibleAnywhere, Category = "Components")
-    class USphereComponent* OuterSphereComponent = nullptr;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	class USphereComponent* OuterSphereComponent = nullptr;
 
-    UPROPERTY(VisibleAnywhere, Category = "Components")
-    class UStaticMeshComponent* MeshComponent = nullptr;
+	UPROPERTY(VisibleAnywhere, Category = "Components")
+	class UStaticMeshComponent* MeshComponent = nullptr;
 
-    UFUNCTION()
-    void OverlapInnerSphere(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor, UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult);
+	UFUNCTION()
+	void OverlapInnerSphere(UPrimitiveComponent* OverlappedComponent, AActor* OtherActor,
+	                        UPrimitiveComponent* OtherComponent, int32 OtherBodyIndex, bool bFromSweep,
+	                        const FHitResult& SweepResult);
 };

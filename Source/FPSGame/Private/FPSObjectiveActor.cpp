@@ -11,41 +11,41 @@
 // Sets default values
 AFPSObjectiveActor::AFPSObjectiveActor()
 {
-    // Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-    PrimaryActorTick.bCanEverTick = true;
+	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
+	PrimaryActorTick.bCanEverTick = true;
 
-    MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
-    MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
-    RootComponent = MeshComponent;
+	MeshComponent = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("MeshComponent"));
+	MeshComponent->SetCollisionEnabled(ECollisionEnabled::NoCollision);
+	RootComponent = MeshComponent;
 
-    SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
-    SphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
-    SphereComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
-    SphereComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
-    SphereComponent->SetupAttachment(RootComponent);
+	SphereComponent = CreateDefaultSubobject<USphereComponent>(TEXT("SphereComponent"));
+	SphereComponent->SetCollisionEnabled(ECollisionEnabled::QueryOnly);
+	SphereComponent->SetCollisionResponseToAllChannels(ECR_Ignore);
+	SphereComponent->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
+	SphereComponent->SetupAttachment(RootComponent);
 }
 
 // Called when the game starts or when spawned
 void AFPSObjectiveActor::BeginPlay()
 {
-    Super::BeginPlay();    
+	Super::BeginPlay();
 }
 
 void AFPSObjectiveActor::NotifyActorBeginOverlap(AActor* OtherActor)
 {
-    Super::NotifyActorBeginOverlap(OtherActor);
+	Super::NotifyActorBeginOverlap(OtherActor);
 
-    PlayEffects();
+	PlayEffects();
 
-    AFPSCharacter* Character = Cast<AFPSCharacter>(OtherActor);
-    if (Character)
-    {
-        Character->bIsCarryingObjective = true;
-        Destroy();
-    }
+	AFPSCharacter* Character = Cast<AFPSCharacter>(OtherActor);
+	if (Character)
+	{
+		Character->bIsCarryingObjective = true;
+		Destroy();
+	}
 }
 
-void AFPSObjectiveActor::PlayEffects() const
+auto AFPSObjectiveActor::PlayEffects() const -> void
 {
-    UGameplayStatics::SpawnEmitterAtLocation(this, PickupFX, GetActorLocation());
+	UGameplayStatics::SpawnEmitterAtLocation(this, PickupFX, GetActorLocation());
 }
